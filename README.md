@@ -1,5 +1,5 @@
 # kamakura-stamp-rally
-
+"This was created during my time as a student at Code Chrysalis."
 ## Project setup
 ```
 npm install
@@ -22,3 +22,5 @@ npm run lint
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
+
+
