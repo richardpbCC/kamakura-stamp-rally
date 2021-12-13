@@ -18,7 +18,7 @@ app.listen(port, () => {
 });
 
 //setup static assets
-app.use(express.static(path.resolve(__dirname, "..", "build")));
+app.use(express.static(path.resolve(__dirname, "..", "dist")));
 
 app.get("/api/locations", async (req, res) => {
   try {
