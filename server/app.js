@@ -12,7 +12,6 @@ app.use(
   )
 );
 
-
 //setup static assets
 app.use(express.static(path.resolve(__dirname, "..", "dist")));
 
