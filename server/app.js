@@ -18,7 +18,7 @@ app.listen(port, () => {
 });
 
 //setup static assets
-app.use(express.static(path.resolve(__dirname, "..", "build")));
+app.use(express.static(path.resolve(__dirname, "..", "dist")));
 
 app.get("/api/locations", async (req, res) => {
   try {
@@ -32,7 +32,7 @@ app.get("/api/locations", async (req, res) => {
 
 // Always return the main index.html, since we are developing a single page application
 app.get("*", (req, res) => {
-  res.sendFile(path.resolve(__dirname, "..", "build", "index.html"));
+  res.sendFile(path.resolve(__dirname, "..", "dist", "index.html"));
 });
 
 module.exports = app;
