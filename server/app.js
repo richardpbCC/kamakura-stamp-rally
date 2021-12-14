@@ -30,10 +30,4 @@ app.get("*", (req, res) => {
   res.sendFile(path.resolve(__dirname, "..", "dist", "index.html"));
 });
 
-// Start
-const port = process.env.PORT || 3000;
-app.listen(port, () => {
-  console.log(`Server up and listening on port ${port}`);
-});
-
 module.exports = app;
