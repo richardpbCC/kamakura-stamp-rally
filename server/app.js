@@ -12,11 +12,6 @@ app.use(
   )
 );
 
-const port = process.env.PORT || 3000;
-app.listen(port, () => {
-  console.log(`Server up and listening on port ${port}`);
-});
-
 //setup static assets
 app.use(express.static(path.resolve(__dirname, "..", "dist")));
 
