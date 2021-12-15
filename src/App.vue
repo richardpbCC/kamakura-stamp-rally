@@ -3,6 +3,7 @@
   <h1 id="app-title">Kamakura Stamp Rally App</h1>
   <Menu v-on:search="showResults" />
   <LocationInfo v-bind:displayList="displayList" />
+  <Post v-bind:displayList="displayList"/>
   <Map v-bind:displayList="displayList"/>
 </template>
 
@@ -10,11 +11,13 @@
 import Menu from "./components/Menu";
 import LocationInfo from "./components/LocationInfo";
 import Map from "./components/Map";
+import Post from "./components/Post";
 export default {
   name: "App",
   components: {
     Menu,
     LocationInfo,
+    Post,
     Map
   },
   data: () => ({

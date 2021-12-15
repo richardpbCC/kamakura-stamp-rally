@@ -40,6 +40,23 @@ app.get("/api/locations/:name", async (req, res) => {
   }
 });
 
+//TODO: add post feature
+app.post("/api/locations/:post", async (req, res) => {
+  const { name } = req.params;
+  //const { post } = req.params;
+  try {
+    const locations = await db.select().table("locations");
+    const found = await locations.filter((location) => {
+      return location.name.toLowerCase() === name.toLowerCase();
+    });
+    console.log(found);
+    res.json(found);
+  } catch (err) {
+    console.log("No matching result", err);
+    res.sendStatus(500);
+  }
+});
+
 // Always return the main index.html, since we are developing a single page application
 app.get("*", (req, res) => {
   res.sendFile(path.resolve(__dirname, "..", "dist", "index.html"));

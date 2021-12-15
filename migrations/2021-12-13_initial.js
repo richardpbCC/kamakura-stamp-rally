@@ -5,7 +5,9 @@ exports.up = function(knex) {
       table.text("name").notNullable();
   
       table.text("imageURL");
-  
+
+      table.text("notes");
+        
       //table.float("location");
     });
   };

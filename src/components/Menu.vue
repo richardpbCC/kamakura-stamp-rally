@@ -26,14 +26,14 @@ export default {
         const searchForm = this.$refs.searchForm;
         const searchRequest = searchForm.value;
         searchForm.value = "";
-        // if (!searchRequest) {
-        //   alert("Please enter a name");
-        // } else {
+        if (!searchRequest) {
+          alert("Please enter a name");
+        } else {
           const res = await fetch(`/api/locations/${searchRequest}`);
           const data = await res.json();
           this.$emit("search", data);
           //this.posts = response.data;
-        //}
+        }
       } catch (error) {
         console.log(error);
       }

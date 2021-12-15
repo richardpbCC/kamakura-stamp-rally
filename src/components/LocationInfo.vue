@@ -16,7 +16,9 @@
     </ul> <br/>
     <div>    
       <img class="pic" v-bind:src="displayList[0].imageURL"/>
-      <p>I visited Kenchoji in November 2018. The kouyou were beautiful that time of year.</p>
+      <p>
+        
+      </p>
     </div>        
   </div>
 </template>
