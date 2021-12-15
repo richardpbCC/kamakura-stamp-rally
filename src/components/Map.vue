@@ -1,6 +1,6 @@
 <template>
   <div class="map">
-    <h1>This is the map</h1>
+    <h1>Map</h1>
      </div>
 </template>
 

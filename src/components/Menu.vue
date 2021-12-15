@@ -1,6 +1,6 @@
 <template>
   <div class="Menu">
-    <h1>This is the Menu</h1>
+    <h1>Menu</h1>
     <div id="search-box">
       <input
         ref="searchForm"
@@ -8,7 +8,7 @@
         type="form"
         placeholder="Input a name"
       />
-      <button v-on:click="getData" type="submit">Search</button>
+      <button v-on:click="submitSearch" type="submit">Search</button>
     </div>
   </div>
 </template>
@@ -18,23 +18,29 @@ export default {
   name: "Menu",
   props: {},
   methods: {
-    submitSearch: function (event) {
-      const searchForm = this.$refs.searchForm;
-      const searchRequest = searchForm.value;
-      searchForm.value = "";
-    },
-    getData: async function () {
+    submitSearch: async function (event) {
       try {
-        const response = await this.$http.get(
-          "/api/locations"
-        );
-        console.log("response", res)
-        this.posts = response.data;
+        // const response = await this.$http.get(
+        //   "http://api/locations?=kenchoji"
+        // );
+        const searchForm = this.$refs.searchForm;
+        const searchRequest = searchForm.value;
+        searchForm.value = "";
+        if (!searchRequest) {
+          alert("Please enter a name");
+        } else {
+          const res = await fetch(`/api/locations/${searchRequest}`);
+          const data = await res.json();
+          console.log("response", data);
+          this.$emit("search-result", data);
+          //this.posts = response.data;
+        }
       } catch (error) {
         console.log(error);
       }
     },
   },
+  emits: []
 };
 </script>
 

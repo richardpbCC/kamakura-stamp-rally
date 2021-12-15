@@ -1,5 +1,5 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png" />
+  <img id="logo" alt="Kamakura city logo" src="./assets/kamakura_logo.png"/>
   <Menu />
   <LocationInfo />
   <Map />
@@ -19,7 +19,11 @@ export default {
   },
   data: () => ({
     view: "home",
+    list: []
   }),
+  methods: {
+    
+  }
 };
 </script>
 
@@ -32,4 +36,7 @@ export default {
   color: #2c3e50;
   margin-top: 60px;
 }
+#logo {
+  width:250px;
+} 
 </style>
