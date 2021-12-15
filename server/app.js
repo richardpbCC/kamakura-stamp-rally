@@ -25,6 +25,20 @@ app.get("/api/locations", async (req, res) => {
   }
 });
 
+app.get("/api/locations/:name", async (req, res) => {
+  const { name } = req.params;
+  try {
+    const locations = await db.select().table("locations");
+    const found = locations.find((location) => {
+      return location.name.toLowerCase() === name.toLowerCase();
+    });
+    res.json(found);
+  } catch (err) {
+    console.error("No matching result", err);
+    res.sendStatus(404);
+  }
+});
+
 // Always return the main index.html, since we are developing a single page application
 app.get("*", (req, res) => {
   res.sendFile(path.resolve(__dirname, "..", "dist", "index.html"));

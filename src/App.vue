@@ -1,17 +1,26 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <img alt="Vue logo" src="./assets/logo.png" />
+  <Menu />
+  <LocationInfo />
+  <Map />
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import Menu from "./components/Menu";
+import Map from "./components/Map";
+import LocationInfo from "./components/LocationInfo";
 
 export default {
-  name: 'App',
+  name: "App",
   components: {
-    HelloWorld
-  }
-}
+    Menu,
+    LocationInfo,
+    Map,
+  },
+  data: () => ({
+    view: "home",
+  }),
+};
 </script>
 
 <style>
