@@ -1,7 +1,6 @@
 <template>
-  <div class="LocationInfo">
-    <h1>Location Info </h1>
-    <h1>{{ msg }}</h1>
+  <div v-if="displayList.length > 0" class="LocationInfo">
+    <h1>{{displayList[0].name}}</h1>
     <p>
       For a guide and recipes on how to configure / customize this project,<br>
       check out the
@@ -14,20 +13,19 @@
       <li><a href="https://chat.vuejs.org" target="_blank" rel="noopener">Community Chat</a></li>
       <li><a href="https://twitter.com/vuejs" target="_blank" rel="noopener">Twitter</a></li>
       <li><a href="https://news.vuejs.org" target="_blank" rel="noopener">News</a></li>
-    </ul>
+    </ul> <br/>
     <div>    
-    <img class="pic" src="https://lh5.googleusercontent.com/p/AF1QipNNe3uvCn8u1ynmEjcY9u-za2BHK07cVjWtHuGm=w408-h544-k-no"/>
-    <p>I visited Kenchoji in November 2018. The kouyou were beautiful that time of year.</p>
-    </div>
+      <img class="pic" v-bind:src="displayList[0].imageURL"/>
+      <p>I visited Kenchoji in November 2018. The kouyou were beautiful that time of year.</p>
+    </div>        
   </div>
 </template>
-
 <script>
+
+
 export default {
   name: 'LocationInfo',
-  props: {
-    msg: String
-  },
+  props: ["displayList"],
   methods: {
 
   }
@@ -37,7 +35,7 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 .pic {
-    height: 300px;
+    height: 500px;
 }
 h3 {
   margin: 40px 0 0;

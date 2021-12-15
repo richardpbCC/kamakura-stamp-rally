@@ -26,21 +26,20 @@ export default {
         const searchForm = this.$refs.searchForm;
         const searchRequest = searchForm.value;
         searchForm.value = "";
-        if (!searchRequest) {
-          alert("Please enter a name");
-        } else {
+        // if (!searchRequest) {
+        //   alert("Please enter a name");
+        // } else {
           const res = await fetch(`/api/locations/${searchRequest}`);
           const data = await res.json();
-          console.log("response", data);
-          this.$emit("search-result", data);
+          this.$emit("search", data);
           //this.posts = response.data;
-        }
+        //}
       } catch (error) {
         console.log(error);
       }
     },
   },
-  emits: []
+  emits: ["search"]
 };
 </script>
 
@@ -48,9 +47,13 @@ export default {
 <style scoped>
 #search-box {
   box-shadow: 0 1px 2px rgb(60 64 67 / 30%), 0 1px 3px 1px rgb(60 64 67 / 15%);
-  min-width: 150px;
+  width: 950px;
   height: 80px;
-  margin: auto;
+  margin-right: auto;
+  margin-left: auto;
+}
+#search {
+  margin-top: 30px;
 }
 h3 {
   margin: 40px 0 0;
