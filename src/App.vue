@@ -1,33 +1,39 @@
 <template>
-  <img id="logo" alt="Kamakura city logo" src="./assets/kamakura_logo.png"/>
-  <Menu />
-  <LocationInfo />
-  <Map />
+  <img id="logo" alt="Kamakura city logo" src="./assets/kamakura_logo.png" />
+  <h1 id="app-title">Kamakura Stamp Rally App</h1>
+  <Menu v-on:search="showResults" />
+  <LocationInfo v-bind:displayList="displayList" />
+  <Map v-bind:displayList="displayList"/>
 </template>
 
 <script>
 import Menu from "./components/Menu";
-import Map from "./components/Map";
 import LocationInfo from "./components/LocationInfo";
-
+import Map from "./components/Map";
 export default {
   name: "App",
   components: {
     Menu,
     LocationInfo,
-    Map,
+    Map
   },
   data: () => ({
     view: "home",
-    list: []
+    displayList: [],
   }),
   methods: {
-    
-  }
+    showResults: function (data) {
+      this.displayList = data;
+      console.log(this.displayList[0].name);
+    },
+  },
 };
 </script>
 
 <style>
+#app-title {
+  color:green;
+}
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -37,6 +43,6 @@ export default {
   margin-top: 60px;
 }
 #logo {
-  width:250px;
-} 
+  width: 250px;
+}
 </style>
