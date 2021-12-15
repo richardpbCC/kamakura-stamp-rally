@@ -15,9 +15,7 @@
       <li><a href="https://news.vuejs.org" target="_blank" rel="noopener">News</a></li>
     </ul> <br/>
     <div>    
-      <img class="pic" v-bind:src="displayList[0].imageURL"/>
-      <p>        
-      </p>
+      <img class="pic" v-bind:src="displayList[0].imageURL"/>      
     </div>        
   </div>
 </template>
