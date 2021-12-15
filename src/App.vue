@@ -12,6 +12,7 @@ import Menu from "./components/Menu";
 import LocationInfo from "./components/LocationInfo";
 import Map from "./components/Map";
 import Post from "./components/Post";
+
 export default {
   name: "App",
   components: {

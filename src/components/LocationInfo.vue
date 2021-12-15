@@ -16,8 +16,7 @@
     </ul> <br/>
     <div>    
       <img class="pic" v-bind:src="displayList[0].imageURL"/>
-      <p>
-        
+      <p>        
       </p>
     </div>        
   </div>
