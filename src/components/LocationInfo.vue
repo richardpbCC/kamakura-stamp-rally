@@ -24,13 +24,10 @@
 </template>
 <script>
 
-
 export default {
   name: 'LocationInfo',
   props: ["displayList"],
-  methods: {
-
-  }
+  methods: { }
 }
 </script>
 
