@@ -6,7 +6,7 @@ exports.up = function(knex) {
   
       table.text("imageURL");
 
-      //table.text("notes");
+      //table.text("notes"); 
         
       //table.float("location");
     });
