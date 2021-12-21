@@ -1,16 +1,17 @@
-exports.up = function(knex) {
-    return knex.schema.createTable("locations", (table) => {
-      table.increments().index();
-  
-       table.text("name").notNullable();
-  
-      // table.text("imageURL");
+exports.up = function (knex) {
+  return knex.schema.createTable("locations", (table) => {
+    table.increments().index();
 
-      //table.text("notes"); 
-        
-      //table.float("location");
-    });
-  };
-  
-  exports.down = function(knex, Promise) {};
-  
+    table.text("name").notNullable();
+
+    table.text("position");
+
+    table.text("imageURL");    
+
+    table.boolean("visited");
+
+    table.text("notes");
+  });
+};
+
+exports.down = function (knex, Promise) {};

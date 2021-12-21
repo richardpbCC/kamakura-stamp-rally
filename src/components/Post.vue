@@ -22,11 +22,15 @@ export default {
       try {
         const postForm = this.$refs.postForm;
         const postRequest = postForm.value;
+        const location = displayList[0].name;
         postForm.value = "";
         if (!postRequest) {
           alert("Please enter a post and click submit");
         } else {
-          const res = await fetch(`/api/locations/${postRequest}`);
+          const res = await fetch(`/api/locations/${location}/${postRequest}`,
+          {
+            method: "post",
+          });
           const data = await res.json();
           this.$emit("post", data);
           //this.posts = response.data;
