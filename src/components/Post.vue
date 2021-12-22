@@ -19,20 +19,26 @@ export default {
   name: "Menu",
   props: ["displayList"],
   methods: {
+
     submitPost: async function (event) {
       try {
         const postForm = this.$refs.postForm;
         const postRequest = postForm.value;
-        console.log(postRequest)
+        
         if (!postRequest) {
           alert("Please enter a post and click submit");
         } else {
           const location = this.displayList[0].name;
           postForm.value = "";
+
           const res = await fetch(`/api/locations/${location}`, {
             method: "PATCH",
-            body: { postRequest: postRequest },
+            body: JSON.stringify({ notes: postRequest }),
+            headers: {
+              "Content-type": "application/json; charset=UTF-8",
+            },
           });
+
           const data = await res.json();
           //this.$emit("post", data);
           //this.posts = response.data;

@@ -1,6 +1,4 @@
 const express = require("express");
-const { rmSync } = require("fs");
-const { default: knex } = require("knex");
 const morgan = require("morgan");
 const path = require("path");
 const db = require("./knex");
@@ -21,7 +19,7 @@ app.use(express.json());
 app.get("/api/locations", async (req, res) => {
   try {
     const locations = await db.select().table("locations");
-    res.json(locations);
+    res.status(200).json(locations);
   } catch (err) {
     console.error("Error loading locations", err);
     res.sendStatus(500);
@@ -35,7 +33,7 @@ app.get("/api/locations/:name", async (req, res) => {
     const found = await locations.filter((location) => {
       return location.name.toLowerCase() === name.toLowerCase();
     });
-    res.json(found);
+    res.status(200).json(found);
   } catch (err) {
     console.log("No matching result", err);
     res.sendStatus(500);
@@ -45,17 +43,12 @@ app.get("/api/locations/:name", async (req, res) => {
 //TODO: add post feature
 app.patch("/api/locations/:name", async (req, res) => {
   const { name } = req.params;
-  const post = req.body;
-  console.log(req.body)
+  const post = req.body;  
   try {
-    const locations = await db.select().table("locations");
-    const found = await locations.filter((location) => {
-      return location.name.toLowerCase() === name.toLowerCase();
-    });
-    // knex("locations")
-    // .where({name: name})
-    // .update({notes : post}, ["name", "notes"]);
-    res.json(found);
+    const patched = await db.select().table("locations")
+    .where({name: name})
+    .update(post);
+    res.status(200).json(patched);
   } catch (err) {
     console.log("No matching result", err);
     res.sendStatus(500);
