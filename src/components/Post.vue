@@ -7,7 +7,8 @@
         id="input-post"
         type="input"
         placeholder="Input your post"
-      /> <br/>
+      />
+      <br />
       <button v-on:click="submitPost" type="submit">Submit</button>
     </div>
   </div>
@@ -22,17 +23,18 @@ export default {
       try {
         const postForm = this.$refs.postForm;
         const postRequest = postForm.value;
-        const location = displayList[0].name;
-        postForm.value = "";
+        console.log(postRequest)
         if (!postRequest) {
           alert("Please enter a post and click submit");
         } else {
-          const res = await fetch(`/api/locations/${location}/${postRequest}`,
-          {
-            method: "post",
+          const location = this.displayList[0].name;
+          postForm.value = "";
+          const res = await fetch(`/api/locations/${location}`, {
+            method: "PATCH",
+            body: { postRequest: postRequest },
           });
           const data = await res.json();
-          this.$emit("post", data);
+          //this.$emit("post", data);
           //this.posts = response.data;
         }
       } catch (error) {
@@ -40,7 +42,7 @@ export default {
       }
     },
   },
-  emits: ["search"]
+  emits: ["search"],
 };
 </script>
 

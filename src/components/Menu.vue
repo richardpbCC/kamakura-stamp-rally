@@ -29,7 +29,9 @@ export default {
         if (!searchRequest) {
           alert("Please enter a name");
         } else {
-          const res = await fetch(`/api/locations/${searchRequest}`);
+          const res = await fetch(`/api/locations/${searchRequest}`, {
+            method : "GET"
+          });
           const data = await res.json();
           this.$emit("search", data);
           //this.posts = response.data;

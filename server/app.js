@@ -1,5 +1,6 @@
 const express = require("express");
 const { rmSync } = require("fs");
+const { default: knex } = require("knex");
 const morgan = require("morgan");
 const path = require("path");
 const db = require("./knex");
@@ -15,6 +16,7 @@ app.use(
 
 //setup static assets
 app.use(express.static(path.resolve(__dirname, "..", "dist")));
+app.use(express.json());
 
 app.get("/api/locations", async (req, res) => {
   try {
@@ -41,15 +43,18 @@ app.get("/api/locations/:name", async (req, res) => {
 });
 
 //TODO: add post feature
-app.post("/api/locations//:name/:post", async (req, res) => {
+app.patch("/api/locations/:name", async (req, res) => {
   const { name } = req.params;
-  const { post } = req.params;
+  const post = req.body;
+  console.log(req.body)
   try {
     const locations = await db.select().table("locations");
     const found = await locations.filter((location) => {
       return location.name.toLowerCase() === name.toLowerCase();
     });
-    console.log(found);
+    // knex("locations")
+    // .where({name: name})
+    // .update({notes : post}, ["name", "notes"]);
     res.json(found);
   } catch (err) {
     console.log("No matching result", err);

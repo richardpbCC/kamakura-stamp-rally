@@ -3,8 +3,8 @@
   <h1 id="app-title">Kamakura Stamp Rally App</h1>
   <Menu v-on:search="showResults" />
   <LocationInfo v-bind:displayList="displayList" />
-  <Post v-bind:displayList="displayList"/>
-  <Map v-bind:displayList="displayList"/>
+  <Post v-bind:displayList="displayList" />
+  <Map v-bind:displayList="displayList" />
 </template>
 
 <script>
@@ -19,7 +19,7 @@ export default {
     Menu,
     LocationInfo,
     Post,
-    Map
+    Map,
   },
   data: () => ({
     view: "home",
@@ -28,7 +28,6 @@ export default {
   methods: {
     showResults: function (data) {
       this.displayList = data;
-      console.log(this.displayList[0].name);
     },
   },
 };
@@ -36,7 +35,7 @@ export default {
 
 <style>
 #app-title {
-  color:green;
+  color: green;
 }
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
