@@ -40,7 +40,6 @@ app.get("/api/locations/:name", async (req, res) => {
   }
 });
 
-//TODO: add post feature
 app.patch("/api/locations/:name", async (req, res) => {
   const { name } = req.params;
   const post = req.body;  

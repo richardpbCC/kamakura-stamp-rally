@@ -16,7 +16,7 @@
     </ul> <br/>
     <div>    
       <img class="pic" v-bind:src="displayList[0].imageURL"/> 
-      <p> {{displayList[0].notes}}</p>     
+      <p> </p>     
     </div>        
   </div>
 </template>

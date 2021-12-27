@@ -9,6 +9,13 @@
         placeholder="Input your post"
       />
       <br />
+      <input
+        type="datetime-local"
+        id="visited-time"
+        name="visited-time"
+        placeholder="dd/mm/yyyy --:--"
+      />
+      <br />
       <button v-on:click="submitPost" type="submit">Submit</button>
     </div>
   </div>
@@ -19,12 +26,11 @@ export default {
   name: "Menu",
   props: ["displayList"],
   methods: {
-
     submitPost: async function (event) {
       try {
         const postForm = this.$refs.postForm;
         const postRequest = postForm.value;
-        
+
         if (!postRequest) {
           alert("Please enter a post and click submit");
         } else {
