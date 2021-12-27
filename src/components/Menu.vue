@@ -16,32 +16,38 @@
 <script>
 export default {
   name: "Menu",
-  props: {},
+  props: [],
   methods: {
     submitSearch: async function (event) {
       try {
-        // const response = await this.$http.get(
-        //   "http://api/locations?=kenchoji"
-        // );
         const searchForm = this.$refs.searchForm;
         const searchRequest = searchForm.value;
         searchForm.value = "";
+        
         if (!searchRequest) {
           alert("Please enter a name");
         } else {
-          const res = await fetch(`/api/locations/${searchRequest}`, {
-            method : "GET"
+          //get locations by name
+          const getLocations = await fetch(`/api/locations/${searchRequest}`, {
+            method: "GET",
           });
-          const data = await res.json();
+          const locations = await getLocations.json();
+
+          //get posts by location
+          const getPosts = await fetch(`/api/posts/${searchRequest}`, {
+            method: "GET",
+          });
+          const posts = await getPosts.json();
+
+          const data = { locations: locations, posts: posts };
           this.$emit("search", data);
-          //this.posts = response.data;
         }
       } catch (error) {
         console.log(error);
       }
     },
   },
-  emits: ["search"]
+  emits: ["search"],
 };
 </script>
 

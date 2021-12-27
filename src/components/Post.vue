@@ -6,13 +6,14 @@
         ref="postForm"
         id="input-post"
         type="input"
-        placeholder="Input your post"
+        placeholder="Input your post here..."
       />
       <br />
       <input
         type="datetime-local"
         id="visited-time"
         name="visited-time"
+        ref="timeForm"
         placeholder="dd/mm/yyyy --:--"
       />
       <br />
@@ -30,6 +31,7 @@ export default {
       try {
         const postForm = this.$refs.postForm;
         const postRequest = postForm.value;
+        const visitTime = this.$refs.timeForm;
 
         if (!postRequest) {
           alert("Please enter a post and click submit");
@@ -37,17 +39,20 @@ export default {
           const location = this.displayList[0].name;
           postForm.value = "";
 
-          const res = await fetch(`/api/locations/${location}`, {
-            method: "PATCH",
-            body: JSON.stringify({ notes: postRequest }),
+          const res = await fetch(`/api/posts/${location}`, {
+            method: "POST",
+            body: JSON.stringify({ 
+              location: location,
+              notes: postRequest,
+              //timestamp: visitTime
+             }),
             headers: {
               "Content-type": "application/json; charset=UTF-8",
             },
           });
 
           const data = await res.json();
-          //this.$emit("post", data);
-          //this.posts = response.data;
+          this.$emit("newPost", data);          
         }
       } catch (error) {
         console.log(error);

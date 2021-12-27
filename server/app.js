@@ -16,6 +16,7 @@ app.use(
 app.use(express.static(path.resolve(__dirname, "..", "dist")));
 app.use(express.json());
 
+//get all locations
 app.get("/api/locations", async (req, res) => {
   try {
     const locations = await db.select().table("locations");
@@ -26,6 +27,7 @@ app.get("/api/locations", async (req, res) => {
   }
 });
 
+//get location by name
 app.get("/api/locations/:name", async (req, res) => {
   const { name } = req.params;
   try {
@@ -40,14 +42,39 @@ app.get("/api/locations/:name", async (req, res) => {
   }
 });
 
-app.patch("/api/locations/:name", async (req, res) => {
-  const { name } = req.params;
-  const post = req.body;  
+//get all posts
+app.get("/api/posts", async (req, res) => {
   try {
-    const patched = await db.select().table("locations")
-    .where({name: name})
-    .update(post);
-    res.status(200).json(patched);
+    const posts = await db.select().table("posts");
+    res.status(200).json(posts);
+  } catch (err) {
+    console.error("Error loading posts", err);
+    res.sendStatus(500);
+  }
+});
+
+//get posts by location
+app.get("/api/posts/:location", async (req, res) => {
+  const { location } = req.params;  
+  try {
+    const posts = await db.select().table("posts");    
+    const postsByLocation = posts.filter(post => {
+      return post.location.toLowerCase() === location.toLowerCase();
+    });
+    res.status(200).json(postsByLocation);
+  } catch (error) {
+    console.error("Error loading posts", err);
+    res.sendStatus(500);
+  }
+});
+
+//new post
+app.post("/api/posts/:location", async (req, res) => {
+  const { location } = req.params;
+  const post = req.body;
+  try {
+    const posted = await db.insert(post).into("posts");
+    res.status(200).json(posted);
   } catch (err) {
     console.log("No matching result", err);
     res.sendStatus(500);

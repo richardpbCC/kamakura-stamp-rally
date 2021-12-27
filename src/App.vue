@@ -2,8 +2,8 @@
   <img id="logo" alt="Kamakura city logo" src="./assets/kamakura_logo.png" />
   <h1 id="app-title">Kamakura Stamp Rally App</h1>
   <Menu v-on:search="showResults" />
-  <LocationInfo v-bind:displayList="displayList" />
-  <Post v-bind:displayList="displayList" />
+  <LocationInfo v-bind:displayList="displayList" v-bind:postsByLocation="postsByLocation"/>
+  <Post v-bind:displayList="displayList" v-on:newPost="Results"/>
   <Map v-bind:displayList="displayList" />
 </template>
 
@@ -24,10 +24,12 @@ export default {
   data: () => ({
     view: "home",
     displayList: [],
+    postsByLocation: ""
   }),
   methods: {
     showResults: function (data) {
-      this.displayList = data;
+      this.displayList = data.locations;
+      this.postsByLocation = data.posts;
     },
   },
 };
