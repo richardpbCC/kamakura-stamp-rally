@@ -27,6 +27,7 @@ export default {
   name: "Menu",
   props: ["displayList"],
   methods: {
+
     submitPost: async function (event) {
       try {
         const postForm = this.$refs.postForm;
@@ -53,8 +54,7 @@ export default {
           });
 
           const posted = await makePost.json();
-          //this.$emit("newPost", posted);  
-          
+                    
           //get posts by location
           const getPosts = await fetch(`/api/posts/${location}`, {
             method: "GET",

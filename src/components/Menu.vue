@@ -18,6 +18,7 @@ export default {
   name: "Menu",
   props: [],
   methods: {
+    
     submitSearch: async function (event) {
       try {
         const searchForm = this.$refs.searchForm;
