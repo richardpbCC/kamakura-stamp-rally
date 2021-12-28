@@ -72,6 +72,7 @@ app.get("/api/posts/:location", async (req, res) => {
 app.post("/api/posts/:location", async (req, res) => {
   const { location } = req.params;
   const post = req.body;
+  console.log("post",post)
   try {
     const posted = await db.insert(post).into("posts");
     res.status(200).json(posted);

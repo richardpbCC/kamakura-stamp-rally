@@ -16,7 +16,7 @@
     </ul> <br/>
     <div>    
       <img class="pic" v-bind:src="displayList[0].imageURL"/> 
-      <p>{{postsByLocation}}</p>     
+      <p v-if="postsByLocation.length > 0">{{postsByLocation}}</p>     
     </div>        
   </div>
 </template>
@@ -24,7 +24,7 @@
 
 export default {
   name: 'LocationInfo',
-  props: ["displayList", "postsByLocation"],
+  props: ["displayList", "postsByLocation", "renderPosts"],
   methods: {}
 }
 </script>

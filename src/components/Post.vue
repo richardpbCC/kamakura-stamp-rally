@@ -36,10 +36,11 @@ export default {
         if (!postRequest) {
           alert("Please enter a post and click submit");
         } else {
+          //post to database
           const location = this.displayList[0].name;
           postForm.value = "";
 
-          const res = await fetch(`/api/posts/${location}`, {
+          const makePost = await fetch(`/api/posts/${location}`, {
             method: "POST",
             body: JSON.stringify({ 
               location: location,
@@ -51,15 +52,23 @@ export default {
             },
           });
 
-          const data = await res.json();
-          this.$emit("newPost", data);          
+          const posted = await makePost.json();
+          //this.$emit("newPost", posted);  
+          
+          //get posts by location
+          const getPosts = await fetch(`/api/posts/${location}`, {
+            method: "GET",
+          });
+
+          const posts = await getPosts.json();          
+          this.$emit("updatePosts", posts);
         }
       } catch (error) {
         console.log(error);
       }
     },
   },
-  emits: ["search"],
+  emits: ["updatePosts"],
 };
 </script>
 
