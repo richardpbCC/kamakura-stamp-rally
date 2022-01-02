@@ -1,19 +1,7 @@
 <template>
   <div v-if="displayList.length > 0" class="LocationInfo">
-    <h1>{{displayList[0].name}}</h1>
-    <p>
-      For a guide and recipes on how to configure / customize this project,<br>
-      check out the
-      <a href="https://cli.vuejs.org" target="_blank" rel="noopener">vue-cli documentation</a>.
-    </p>
-        <h3>Essential Links</h3>
-    <ul>
-      <li><a href="https://vuejs.org" target="_blank" rel="noopener">Core Docs</a></li>
-      <li><a href="https://forum.vuejs.org" target="_blank" rel="noopener">Forum</a></li>
-      <li><a href="https://chat.vuejs.org" target="_blank" rel="noopener">Community Chat</a></li>
-      <li><a href="https://twitter.com/vuejs" target="_blank" rel="noopener">Twitter</a></li>
-      <li><a href="https://news.vuejs.org" target="_blank" rel="noopener">News</a></li>
-    </ul> <br/>
+    <h1>{{displayList[0].name}}</h1>    
+        <br/>
     <div>    
       <img class="pic" v-bind:src="displayList[0].imageURL"/> 
       <p v-if="postsByLocation.length > 0">{{postsByLocation}}</p>     

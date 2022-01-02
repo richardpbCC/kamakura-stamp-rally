@@ -8,8 +8,21 @@
         type="form"
         placeholder="Input a name"
       />
-      <button v-on:click="submitSearch" type="submit">Search</button>
+      <button v-on:click="[searchByName($event), find($event)]" type="submit">Search</button>
+      <br/>
     </div>
+      <ul className="list-of-locations">
+      <li><a v-on:click="[clickOnLink($event), find($event)]">Kenchoji</a></li>
+      <li><a v-on:click="[clickOnLink($event), find($event)]">Hasedera</a></li>
+      <li><a v-on:click="[clickOnLink($event), find($event)]">Kōtoku-in</a></li>
+      <li><a v-on:click="[clickOnLink($event), find($event)]">Hokokuji</a></li>
+      <li><a v-on:click="[clickOnLink($event), find($event)]">Meigetsuin</a></li>
+      <li><a v-on:click="[clickOnLink($event), find($event)]">Engakuji</a></li>
+      <li><a v-on:click="[clickOnLink($event), find($event)]">Tokeiji</a></li>
+      <li><a v-on:click="[clickOnLink($event), find($event)]">Zuisen-ji</a></li>
+      <li><a v-on:click="[clickOnLink($event), find($event)]">Jōchi-ji</a></li>
+      <li><a v-on:click="[clickOnLink($event), find($event)]">Jufuku-ji</a></li>
+      </ul>
   </div>
 </template>
 
@@ -17,25 +30,34 @@
 export default {
   name: "Menu",
   props: [],
+  data: () => ({
+      searchRequest: ""
+  }),
   methods: {
-    
-    submitSearch: async function (event) {
-      try {
-        const searchForm = this.$refs.searchForm;
-        const searchRequest = searchForm.value;
-        searchForm.value = "";
-        
-        if (!searchRequest) {
+    searchByName: function (event) {     
+      const searchForm = this.$refs.searchForm;
+      this.searchRequest  = searchForm.value;
+      searchForm.value = "";
+    },
+
+    clickOnLink: function (event) {
+      console.log(event.target.innerText)
+      this.searchRequest = event.target.innerText;
+    },
+
+    find: async function (event) {
+      try {        
+        if (!this.searchRequest) {
           alert("Please enter a name");
         } else {
           //get locations by name
-          const getLocations = await fetch(`/api/locations/${searchRequest}`, {
+          const getLocations = await fetch(`/api/locations/${this.searchRequest}`, {
             method: "GET",
           });
           const locations = await getLocations.json();
 
           //get posts by location
-          const getPosts = await fetch(`/api/posts/${searchRequest}`, {
+          const getPosts = await fetch(`/api/posts/${this.searchRequest}`, {
             method: "GET",
           });
           const posts = await getPosts.json();
@@ -77,5 +99,11 @@ li {
 }
 a {
   color: #42b983;
+}
+.list-of-locations {
+  cursor: pointer;
+}
+button {
+  cursor: pointer;
 }
 </style>

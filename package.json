@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "start": "node server",
+    "start": "nodemon server",
     "serve": "npm run build && npm start",
     "build": "vue-cli-service build",
     "dev": "vue-cli-service serve",
@@ -17,6 +17,7 @@
     "express": "^4.17.1",
     "knex": "^0.95.14",
     "morgan": "^1.10.0",
+    "nodemon": "^2.0.15",
     "pg": "^8.7.1",
     "vue": "^3.0.0"
   },
