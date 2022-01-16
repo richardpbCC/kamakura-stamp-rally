@@ -102,6 +102,7 @@ a {
 }
 .list-of-locations {
   cursor: pointer;
+  text-decoration: underline;
 }
 button {
   cursor: pointer;
