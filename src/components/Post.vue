@@ -39,6 +39,8 @@ export default {
 
         if (!postRequest) {
           alert("Please enter a post and click submit");
+        } else if (!timeSelected) {
+          alert("Please enter a time and click submit");
         } else {
           //post to database
           const location = this.displayList[0].name;
