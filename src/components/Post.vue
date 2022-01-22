@@ -32,21 +32,24 @@ export default {
       try {
         const postForm = this.$refs.postForm;
         const postRequest = postForm.value;
-        const visitTime = this.$refs.timeForm;
+        const visitTimeForm = this.$refs.timeForm;
+        const timeSelected = visitTimeForm.value;
+
+        console.log(visitTimeForm.value)
 
         if (!postRequest) {
           alert("Please enter a post and click submit");
         } else {
           //post to database
           const location = this.displayList[0].name;
-          postForm.value = "";
+          postForm.value = "";          
 
           const makePost = await fetch(`/api/posts/${location}`, {
             method: "POST",
             body: JSON.stringify({ 
               location: location,
               notes: postRequest,
-              //timestamp: visitTime
+              timestamp: timeSelected
              }),
             headers: {
               "Content-type": "application/json; charset=UTF-8",
@@ -76,7 +79,7 @@ export default {
 <style scoped>
 #input-post {
   box-shadow: 0 1px 2px rgb(60 64 67 / 30%), 0 1px 3px 1px rgb(60 64 67 / 15%);
-  width: 750px;
+  width: 650px;
   height: 100px;
   margin-right: auto;
   margin-left: auto;

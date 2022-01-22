@@ -70,7 +70,6 @@ app.get("/api/posts/:location", async (req, res) => {
 
 //new post
 app.post("/api/posts/:location", async (req, res) => {
-  const { location } = req.params;
   const post = req.body;
   console.log("post",post)
   try {

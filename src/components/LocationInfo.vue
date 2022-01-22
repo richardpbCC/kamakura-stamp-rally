@@ -6,18 +6,25 @@
       <img class="pic" v-bind:src="displayList[0].imageURL" />
       <div v-if="postsByLocation.length > 0">
         <div class="post-box" v-for="post in postsByLocation" :key="post.id">
-        <p class="post">{{ post.notes }}</p>
-        <p class="time">{{ displayList[0].visited }}</p>
+          <p class="post">{{ post.notes }}</p>
+          <p class="time">{{ formatDate(post.timestamp) }}</p>
         </div>
       </div>
     </div>
   </div>
 </template>
+
 <script>
+import moment from "moment";
+
 export default {
   name: "LocationInfo",
   props: ["displayList", "postsByLocation", "renderPosts"],
-  methods: {},
+  methods: {
+    formatDate: function (date) {
+      return moment(date).format("dddd, MMMM Do YYYY, h:mm a"); 
+    },
+  },
 };
 </script>
 
@@ -37,7 +44,7 @@ export default {
 .post {
   text-align: left;
   padding: 10px 10px 10px 10px;
-  }
+}
 .time {
   text-align: right;
   padding: 10px 10px 10px 10px;
