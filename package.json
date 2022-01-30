@@ -4,8 +4,9 @@
   "private": true,
   "scripts": {
     "start": "nodemon server",
-    "dev": "vue-cli-service serve",
+    "serve": "npm run build && npm start",
     "build": "vue-cli-service build",
+    "dev": "vue-cli-service serve",
     "lint": "vue-cli-service lint",
     "seed": "node -r dotenv/config ./data/import.js"
   },
@@ -15,7 +16,9 @@
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
     "knex": "^0.95.14",
+    "moment": "^2.29.1",
     "morgan": "^1.10.0",
+    "nodemon": "^2.0.15",
     "pg": "^8.7.1",
     "vue": "^3.0.0"
   },
@@ -26,8 +29,7 @@
     "@vue/compiler-sfc": "^3.0.0",
     "babel-eslint": "^10.1.0",
     "eslint": "^6.7.2",
-    "eslint-plugin-vue": "^7.0.0",
-    "nodemon": "^2.0.15"
+    "eslint-plugin-vue": "^7.0.0"
   },
   "eslintConfig": {
     "root": true,

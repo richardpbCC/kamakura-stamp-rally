@@ -9,11 +9,11 @@ const path = require("path");
     );
     for (const location of locations) {
       const name = location.name;
-      const imageURL = location.imageURL;
+      //const imageURL = location.imageURL;
 
       const result = await db("locations").insert({
         name,
-        imageURL
+        //imageURL
       });
       console.log(result);
     }

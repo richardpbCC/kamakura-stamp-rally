@@ -1,5 +1,4 @@
 const express = require("express");
-const { rmSync } = require("fs");
 const morgan = require("morgan");
 const path = require("path");
 const db = require("./knex");
@@ -7,25 +6,28 @@ const db = require("./knex");
 const app = express();
 
 // Setup logger
-// app.use(
-//   morgan(
-//     ':remote-addr - :remote-user [:date[clf]] ":method :url HTTP/:http-version" :status :res[content-length] :response-time ms'
-//   )
-// );
+app.use(
+  morgan(
+    ':remote-addr - :remote-user [:date[clf]] ":method :url HTTP/:http-version" :status :res[content-length] :response-time ms'
+  )
+);
 
 //setup static assets
 app.use(express.static(path.resolve(__dirname, "..", "dist")));
+app.use(express.json());
 
+//get all locations
 app.get("/api/locations", async (req, res) => {
   try {
     const locations = await db.select().table("locations");
-    res.json(locations);
+    res.status(200).json(locations);
   } catch (err) {
     console.error("Error loading locations", err);
     res.sendStatus(500);
   }
 });
 
+//get location by name
 app.get("/api/locations/:name", async (req, res) => {
   const { name } = req.params;
   try {
@@ -33,24 +35,46 @@ app.get("/api/locations/:name", async (req, res) => {
     const found = await locations.filter((location) => {
       return location.name.toLowerCase() === name.toLowerCase();
     });
-    res.json(found);
+    res.status(200).json(found);
   } catch (err) {
     console.log("No matching result", err);
     res.sendStatus(500);
   }
 });
 
-//TODO: add post feature
-app.post("/api/locations/:post", async (req, res) => {
-  const { name } = req.params;
-  //const { post } = req.params;
+//get all posts
+app.get("/api/posts", async (req, res) => {
   try {
-    const locations = await db.select().table("locations");
-    const found = await locations.filter((location) => {
-      return location.name.toLowerCase() === name.toLowerCase();
+    const posts = await db.select().table("posts");
+    res.status(200).json(posts);
+  } catch (err) {
+    console.error("Error loading posts", err);
+    res.sendStatus(500);
+  }
+});
+
+//get posts by location
+app.get("/api/posts/:location", async (req, res) => {
+  const { location } = req.params;  
+  try {
+    const posts = await db.select().table("posts");    
+    const postsByLocation = posts.filter(post => {
+      return post.location.toLowerCase() === location.toLowerCase();
     });
-    console.log(found);
-    res.json(found);
+    res.status(200).json(postsByLocation);
+  } catch (error) {
+    console.error("Error loading posts", err);
+    res.sendStatus(500);
+  }
+});
+
+//new post
+app.post("/api/posts/:location", async (req, res) => {
+  const post = req.body;
+  console.log("post",post)
+  try {
+    const posted = await db.insert(post).into("posts");
+    res.status(200).json(posted);
   } catch (err) {
     console.log("No matching result", err);
     res.sendStatus(500);

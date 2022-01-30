@@ -6,8 +6,17 @@
         ref="postForm"
         id="input-post"
         type="input"
-        placeholder="Input your post"
-      /> <br/>
+        placeholder="Input your post here..."
+      />
+      <br />
+      <input
+        type="datetime-local"
+        id="visited-time"
+        name="visited-time"
+        ref="timeForm"
+        placeholder="dd/mm/yyyy --:--"
+      />
+      <br />
       <button v-on:click="submitPost" type="submit">Submit</button>
     </div>
   </div>
@@ -18,25 +27,53 @@ export default {
   name: "Menu",
   props: ["displayList"],
   methods: {
+
     submitPost: async function (event) {
       try {
         const postForm = this.$refs.postForm;
         const postRequest = postForm.value;
-        postForm.value = "";
+        const visitTimeForm = this.$refs.timeForm;
+        const timeSelected = visitTimeForm.value;
+
+        console.log(visitTimeForm.value)
+
         if (!postRequest) {
           alert("Please enter a post and click submit");
+        } else if (!timeSelected) {
+          alert("Please enter a time and click submit");
         } else {
-          const res = await fetch(`/api/locations/${postRequest}`);
-          const data = await res.json();
-          this.$emit("post", data);
-          //this.posts = response.data;
+          //post to database
+          const location = this.displayList[0].name;
+          postForm.value = "";          
+
+          const makePost = await fetch(`/api/posts/${location}`, {
+            method: "POST",
+            body: JSON.stringify({ 
+              location: location,
+              notes: postRequest,
+              timestamp: timeSelected
+             }),
+            headers: {
+              "Content-type": "application/json; charset=UTF-8",
+            },
+          });
+
+          const posted = await makePost.json();
+                    
+          //get posts by location
+          const getPosts = await fetch(`/api/posts/${location}`, {
+            method: "GET",
+          });
+
+          const posts = await getPosts.json();          
+          this.$emit("updatePosts", posts);
         }
       } catch (error) {
         console.log(error);
       }
     },
   },
-  emits: ["search"]
+  emits: ["updatePosts"],
 };
 </script>
 
@@ -44,7 +81,7 @@ export default {
 <style scoped>
 #input-post {
   box-shadow: 0 1px 2px rgb(60 64 67 / 30%), 0 1px 3px 1px rgb(60 64 67 / 15%);
-  width: 750px;
+  width: 650px;
   height: 100px;
   margin-right: auto;
   margin-left: auto;

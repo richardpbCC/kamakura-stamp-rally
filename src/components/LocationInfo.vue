@@ -1,43 +1,53 @@
 <template>
   <div v-if="displayList.length > 0" class="LocationInfo">
-    <h1>{{displayList[0].name}}</h1>
-    <p>
-      For a guide and recipes on how to configure / customize this project,<br>
-      check out the
-      <a href="https://cli.vuejs.org" target="_blank" rel="noopener">vue-cli documentation</a>.
-    </p>
-        <h3>Essential Links</h3>
-    <ul>
-      <li><a href="https://vuejs.org" target="_blank" rel="noopener">Core Docs</a></li>
-      <li><a href="https://forum.vuejs.org" target="_blank" rel="noopener">Forum</a></li>
-      <li><a href="https://chat.vuejs.org" target="_blank" rel="noopener">Community Chat</a></li>
-      <li><a href="https://twitter.com/vuejs" target="_blank" rel="noopener">Twitter</a></li>
-      <li><a href="https://news.vuejs.org" target="_blank" rel="noopener">News</a></li>
-    </ul> <br/>
-    <div>    
-      <img class="pic" v-bind:src="displayList[0].imageURL"/>
-      <p>
-        
-      </p>
-    </div>        
+    <h1>{{ displayList[0].name }}</h1>
+    <br />
+    <div>
+      <img class="pic" v-bind:src="displayList[0].imageURL" />
+      <div v-if="postsByLocation.length > 0">
+        <div class="post-box" v-for="post in postsByLocation" :key="post.id">
+          <p class="post">{{ post.notes }}</p>
+          <p class="time">{{ formatDate(post.timestamp) }}</p>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
-<script>
 
+<script>
+import moment from "moment";
 
 export default {
-  name: 'LocationInfo',
-  props: ["displayList"],
+  name: "LocationInfo",
+  props: ["displayList", "postsByLocation", "renderPosts"],
   methods: {
-
-  }
-}
+    formatDate: function (date) {
+      return moment(date).format("dddd, MMMM Do YYYY, h:mm a"); 
+    },
+  },
+};
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 .pic {
-    height: 500px;
+  height: 500px;
+  padding: 10px 10px 10px 10px;
+}
+.post-box {
+  box-shadow: 0 1px 2px rgb(60 64 67 / 30%), 0 1px 3px 1px rgb(60 64 67 / 15%);
+  margin-right: auto;
+  margin-left: auto;
+  width: 600px;
+  min-height: 80px;
+}
+.post {
+  text-align: left;
+  padding: 10px 10px 10px 10px;
+}
+.time {
+  text-align: right;
+  padding: 10px 10px 10px 10px;
 }
 h3 {
   margin: 40px 0 0;
