@@ -8,7 +8,10 @@
         type="form"
         placeholder="Input a name"
       />
-      <button v-on:click="[searchByName($event), find($event)]" type="submit">Search</button>
+      <button 
+      v-on:click="[searchByName($event), find($event)]" 
+      v-on:keyup.enter="[searchByName($event), find($event)]"
+      type="submit">Search</button>
       <br/>
     </div>
       <ul className="list-of-locations">
