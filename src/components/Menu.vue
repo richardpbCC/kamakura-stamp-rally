@@ -3,7 +3,7 @@
     <h1>Menu</h1>
     <div id="search-box">
       <input
-        v-on:click="[searchByName($event), find($event)]"
+        v-on:keyup.enter="[searchByName($event), find($event)]"
         ref="searchForm"
         id="search"
         type="form"
