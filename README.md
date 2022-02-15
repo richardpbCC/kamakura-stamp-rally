@@ -30,7 +30,7 @@
 <br />
 <div align="center">
   <a href="https://github.com/richardpbCC/kamakura-stamp-rally">
-    <img src="src/assets/kamakura_logo.png" alt="Logo" width="80" height="80">
+    <img src="src/assets/kamakura_logo.png" alt="Logo" width="180" >
   </a>
 
 <h3 align="center">Kamakura Stamp Rally</h3>
