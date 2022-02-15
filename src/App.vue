@@ -5,6 +5,9 @@
   <LocationInfo
     v-bind:displayList="displayList"
     v-bind:postsByLocation="postsByLocation"
+    v-bind:currentLocation="currentLocation"
+    v-on:selectedPostId="setSelectedPost"
+    v-on:updatePosts="showPosts"
   />
   <Post v-bind:displayList="displayList" v-on:updatePosts="showPosts" />
   <Map v-bind:displayList="displayList" />
@@ -26,17 +29,25 @@ export default {
   },
   data: () => ({
     view: "home",
+    currentLocation: "",
     displayList: [],
     postsByLocation: [],
+    selectedPostId: 0,
   }),
   methods: {
     showResults: function (data) {
-      this.displayList = data.locations;
+      this.displayList = data.location;
+      this.currentLocation = data.location[0];
       this.postsByLocation = data.posts;
+      console.log(this.currentLocation)
     },
     showPosts: function (data) {
-      this.postsByLocation = data;
+      this.postsByLocation = data.posts;
+      this.currentLocation = data.location;
     },
+    setSelectedPost: function (data) {
+      this.selectedPostId = data;
+    },    
   },
 };
 </script>

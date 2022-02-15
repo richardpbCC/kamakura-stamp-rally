@@ -6,7 +6,6 @@
         v-on:keyup.enter="[searchByName($event), find($event)]"
         ref="searchForm"
         id="search"
-        type="form"
         placeholder="Input a name"
       />
       <button v-on:click="[searchByName($event), find($event)]" type="submit">
@@ -46,7 +45,6 @@ export default {
     },
 
     clickOnLink: function (event) {
-      console.log(event.target.innerText);
       this.searchRequest = event.target.innerText;
     },
 
@@ -55,14 +53,14 @@ export default {
         if (!this.searchRequest) {
           alert("Please enter a name");
         } else {
-          //get locations by name
-          const getLocations = await fetch(
+          //get location by name
+          const getLocation = await fetch(
             `/api/locations/${this.searchRequest}`,
             {
               method: "GET",
             }
           );
-          const locations = await getLocations.json();
+          const location = await getLocation.json();
 
           //get posts by location
           const getPosts = await fetch(`/api/posts/${this.searchRequest}`, {
@@ -70,11 +68,11 @@ export default {
           });
           const posts = await getPosts.json();
 
-          const data = { locations: locations, posts: posts };
-          this.$emit("search", data);
+          //update current selection
+          this.$emit("search", { location: location, posts: posts });
         }
       } catch (error) {
-        console.log(error);
+        console.error(error);
       }
     },
   },

@@ -5,9 +5,23 @@
     <div>
       <img class="pic" v-bind:src="displayList[0].imageURL" />
       <div v-if="postsByLocation.length > 0">
-        <div class="post-box" v-for="post in postsByLocation" :key="post.id">
+        <div
+          class="post-box"
+          v-for="post in postsByLocation"
+          :key="post.id"
+          :id="post.id"
+          :location="post.location"
+        >
           <p class="post">{{ post.notes }}</p>
-          <p class="time">{{ formatDate(post.timestamp) }}</p>
+          <div class="post-controls">
+            <button v-on:click="selectPost" class="edit-button">
+              Edit Post
+            </button>
+            <button v-on:click="deletePost" class="delete-button">
+              Delete Post
+            </button>
+            <div class="time">{{ formatDate(post.timestamp) }}</div>
+          </div>
         </div>
       </div>
     </div>
@@ -19,12 +33,58 @@ import moment from "moment";
 
 export default {
   name: "LocationInfo",
-  props: ["displayList", "postsByLocation", "renderPosts"],
+  props: [
+    "displayList",
+    "postsByLocation",
+    "renderPosts",
+    "selectedPost",
+    "currentLocation",
+  ],
   methods: {
+    selectPost: async function (event) {
+      try {
+        const selectedPostId = event.target.parentElement.parentElement.id;
+        this.$emit("selectedPostId", selectedPostId);
+      } catch (error) {
+        console.error(error);
+      }
+    },
+
+    deletePost: async function (event) {
+      try {
+        const selectedPostId = event.target.parentElement.parentElement.id;
+        const selectedPostLocation = this.currentLocation.name;
+
+        console.log(selectedPostId);
+        console.log(selectedPostLocation);
+        //delete post from database
+        const deletePost = await fetch(`/api/posts/`, {
+          method: "DELETE",
+          body: JSON.stringify({
+            id: selectedPostId,
+          }),
+          headers: {
+            "Content-type": "application/json; charset=UTF-8",
+          },
+        });
+
+        //reset posts after delete
+        const getPosts = await fetch(`/api/posts/${selectedPostLocation}`, {
+          method: "GET",
+        });
+
+        const posts = await getPosts.json();
+        this.$emit("updatePosts", { posts: posts, location: this.currentLocation });
+      } catch (error) {
+        console.error(error);
+      }
+    },
+
     formatDate: function (date) {
-      return moment(date).format("dddd, MMMM Do YYYY, h:mm a"); 
+      return moment(date).format("dddd, MMMM Do YYYY, h:mm a");
     },
   },
+  emits: ["selectedPostId", "updatePosts"],
 };
 </script>
 
@@ -45,9 +105,20 @@ export default {
   text-align: left;
   padding: 10px 10px 10px 10px;
 }
+.post-controls {
+  display: inline;
+}
+.edit-button {
+  float: left;
+  margin-left: 5px;
+}
+.delete-button {
+  float: left;
+  margin-left: 5px;
+}
 .time {
-  text-align: right;
-  padding: 10px 10px 10px 10px;
+  float: right;
+  margin-right: 5px;
 }
 h3 {
   margin: 40px 0 0;
