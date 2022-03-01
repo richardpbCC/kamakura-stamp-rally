@@ -77,6 +77,8 @@ Here's a blank template to get started: To avoid retyping too much info. Do a se
 ## About The Project
 "This was created during my time as a student at Code Chrysalis."
 
+##Please note that this project is still a work in progreess##
+</br>
 Kamakura Stamp Rally started as a solo MVP project during my time at Code Chrysalis. I have been continuing to develop the application since and plan to implement several new features including user authentication and Google Maps navigation. Please see the <a href=#road-map>Road Map</a> below for a full list if planned features.   
 
 <div align="center">
