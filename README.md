@@ -79,8 +79,9 @@ Here's a blank template to get started: To avoid retyping too much info. Do a se
 
 Kamakura Stamp Rally started as a solo MVP project during my time at Code Chrysalis. I have been continuing to develop the application since and plan to implement several new features including user authentication and Google Maps navigation. Please see the <a href=#road-map>Road Map</a> below for a full list if planned features.   
 
-<img src="src/assets/screenshot.png" alt="Screenshot of Kamakura Stamp Rally location page" width="200" >
-
+<div align="center">
+<img src="src/assets/Screenshot.jpg" alt="Screenshot of Kamakura Stamp Rally location page" width="600" >
+</div>
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
