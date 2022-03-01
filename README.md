@@ -23,6 +23,7 @@
 [![Issues][issues-shield]][issues-url]
 [![MIT License][license-shield]][license-url]
 [![LinkedIn][linkedin-shield]][linkedin-url]
+Here's a blank template to get started: To avoid retyping too much info. Do a search and replace with your text editor for the following: `richardpbCC`, `kamakura-stamp-rally`, `twitter_handle`, `linkedin_username`, `email`, `email_client`, `Kamakura Stamp Rally`, `project_description`
 -->
 
 
@@ -36,7 +37,7 @@
 <h3 align="center">Kamakura Stamp Rally</h3>
 
   <p align="center">
-    project_description
+    A Full Stack app which lets the user visually track and record details of their visits <br> to the many Shrines and Temples in the historical Japanese city of Kamakura
     <br />
     <a href="https://github.com/richardpbCC/kamakura-stamp-rally"><strong>Explore the docs »</strong></a>
     <br />
@@ -76,10 +77,10 @@
 ## About The Project
 "This was created during my time as a student at Code Chrysalis."
 
-A Full Stack app which lets the user visually track and record details of their visits to the many Shrines and Temples in the historical Japanese city of Kamakura
-[![Product Name Screen Shot][product-screenshot]](https://example.com)
+Kamakura Stamp Rally started as a solo MVP project during my time at Code Chrysalis. I have been continuing to develop the application since and plan to implement several new features including user authentication and Google Maps navigation. Please see the <a href=#road-map>Road Map</a> below for a full list if planned features.   
 
-Here's a blank template to get started: To avoid retyping too much info. Do a search and replace with your text editor for the following: `richardpbCC`, `kamakura-stamp-rally`, `twitter_handle`, `linkedin_username`, `email`, `email_client`, `Kamakura Stamp Rally`, `project_description`
+<img src="src/assets/screenshot.png" alt="Screenshot of Kamakura Stamp Rally location page" width="200" >
+
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
@@ -96,7 +97,6 @@ Here's a blank template to get started: To avoid retyping too much info. Do a se
 <!-- GETTING STARTED -->
 ## Getting Started
 
-This is an example of how you may give instructions on setting up your project locally.
 To get a local copy up and running follow these simple example steps.
 
 ### Prerequisites
@@ -109,25 +109,25 @@ This is an example of how to list things you need to use the software and how to
 
 ### Installation
 
-1. Get a free API Key at [https://example.com](https://example.com)
-2. Clone the repo
+1. Clone the repo
    ```sh
    git clone https://github.com/richardpbCC/kamakura-stamp-rally.git
    ```
-3. Install NPM packages
+2. Install NPM packages
    ```sh
    npm install
-   ```
+
+<!--```
 4. Enter your API in `config.js`
    ```js
    const API_KEY = 'ENTER YOUR API';
    ```
-
+-->
 <p align="right">(<a href="#top">back to top</a>)</p>
 
 
 
-<!-- USAGE EXAMPLES -->
+<!-- USAGE EXAMPLES 
 ## Usage
 
 Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
@@ -135,16 +135,23 @@ Use this space to show useful examples of how a project can be used. Additional 
 _For more examples, please refer to the [Documentation](https://example.com)_
 
 <p align="right">(<a href="#top">back to top</a>)</p>
-
+-->
 
 
 <!-- ROADMAP -->
+<div id = road-map></div>
+
 ## Roadmap
 
-- [ ] Feature 1
-- [ ] Feature 2
-- [ ] Feature 3
-    - [ ] Nested Feature
+  
+- [ ] Integrate Google Maps API for navigation
+- [ ] Integrate session storage
+- [ ] Add feature to show a list of "stamps" for all locations visited
+- [ ] Impletment user authentication
+  - [ ] Save individual user posts to database
+  - [ ] Save visited status for each location
+  - [ ] Save list of stamps for each user
+    
 
 See the [open issues](https://github.com/richardpbCC/kamakura-stamp-rally/issues) for a full list of proposed features (and known issues).
 
@@ -154,8 +161,6 @@ See the [open issues](https://github.com/richardpbCC/kamakura-stamp-rally/issues
 
 <!-- CONTRIBUTING -->
 ## Contributing
-
-Contributions are what make the open source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
 
 If you have a suggestion that would make this better, please fork the repo and create a pull request. You can also simply open an issue with the tag "enhancement".
 Don't forget to give the project a star! Thanks again!
@@ -170,27 +175,27 @@ Don't forget to give the project a star! Thanks again!
 
 
 
-<!-- LICENSE -->
+<!-- LICENSE 
 ## License
 
 Distributed under the MIT License. See `LICENSE.txt` for more information.
 
 <p align="right">(<a href="#top">back to top</a>)</p>
+-->
 
 
-
-<!-- CONTACT -->
+<!-- CONTACT 
 ## Contact
 
-Your Name - [@twitter_handle](https://twitter.com/twitter_handle) - email@email_client.com
+Richard - [@twitter_handle](https://twitter.com/twitter_handle) - email@email_client.com
 
 Project Link: [https://github.com/richardpbCC/kamakura-stamp-rally](https://github.com/richardpbCC/kamakura-stamp-rally)
 
 <p align="right">(<a href="#top">back to top</a>)</p>
+-->
 
 
-
-<!-- ACKNOWLEDGMENTS -->
+<!-- ACKNOWLEDGMENTS 
 ## Acknowledgments
 
 * []()
@@ -198,7 +203,7 @@ Project Link: [https://github.com/richardpbCC/kamakura-stamp-rally](https://gith
 * []()
 
 <p align="right">(<a href="#top">back to top</a>)</p>
-
+-->
 
 
 <!-- MARKDOWN LINKS & IMAGES -->
