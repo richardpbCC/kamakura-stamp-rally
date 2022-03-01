@@ -90,6 +90,10 @@ Kamakura Stamp Rally started as a solo MVP project during my time at Code Chrysa
 ### Built With
 
 * [Vue.js](https://vuejs.org/)
+* [Node.js](https://nodejs.org/en/)
+* [Express.js](https://expressjs.com/)
+* [Knex.js](https://knexjs.org/)
+* [PostgreSQL](https://www.postgresql.org/)
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
