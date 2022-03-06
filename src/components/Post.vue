@@ -27,7 +27,6 @@ export default {
   name: "Menu",
   props: ["displayList"],
   methods: {
-
     submitPost: async function (event) {
       try {
         const postForm = this.$refs.postForm;
@@ -35,7 +34,7 @@ export default {
         const visitTimeForm = this.$refs.timeForm;
         const timeSelected = visitTimeForm.value;
 
-        console.log(visitTimeForm.value)
+        console.log(visitTimeForm.value);
 
         if (!postRequest) {
           alert("Please enter a post and click submit");
@@ -44,32 +43,32 @@ export default {
         } else {
           //post to database
           const location = this.displayList[0].name;
-          postForm.value = "";          
+          postForm.value = "";
 
           const makePost = await fetch(`/api/posts/${location}`, {
             method: "POST",
-            body: JSON.stringify({ 
+            body: JSON.stringify({
               location: location,
               notes: postRequest,
-              timestamp: timeSelected
-             }),
+              timestamp: timeSelected,
+            }),
             headers: {
               "Content-type": "application/json; charset=UTF-8",
             },
           });
 
           const posted = await makePost.json();
-                    
+
           //get posts by location
           const getPosts = await fetch(`/api/posts/${location}`, {
             method: "GET",
           });
 
-          const posts = await getPosts.json();          
-          this.$emit("updatePosts", posts);
+          const posts = await getPosts.json();
+          this.$emit("updatePosts", { posts: posts, location: this.displayList[0] });
         }
       } catch (error) {
-        console.log(error);
+        console.error(error);
       }
     },
   },

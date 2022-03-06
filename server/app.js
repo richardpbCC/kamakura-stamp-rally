@@ -55,12 +55,13 @@ app.get("/api/posts", async (req, res) => {
 
 //get posts by location
 app.get("/api/posts/:location", async (req, res) => {
-  const { location } = req.params;  
+  const { location } = req.params;
   try {
-    const posts = await db.select().table("posts");    
-    const postsByLocation = posts.filter(post => {
+    const posts = await db.select().table("posts");
+    const postsByLocation = posts.filter((post) => {
       return post.location.toLowerCase() === location.toLowerCase();
     });
+    console.log(postsByLocation);
     res.status(200).json(postsByLocation);
   } catch (error) {
     console.error("Error loading posts", err);
@@ -71,13 +72,24 @@ app.get("/api/posts/:location", async (req, res) => {
 //new post
 app.post("/api/posts/:location", async (req, res) => {
   const post = req.body;
-  console.log("post",post)
+  console.log("post", post);
   try {
     const posted = await db.insert(post).into("posts");
     res.status(200).json(posted);
   } catch (err) {
-    console.log("No matching result", err);
+    console.error("No matching result", err);
     res.sendStatus(500);
+  }
+});
+
+//delete post by id
+app.delete("/api/posts/", async (req, res) => {
+  const postId = req.body.id;
+    try {
+    const deleted = await db("posts").where({ id: postId }).del();
+    res.status(200).json(deleted);
+  } catch (error) {
+    console.error(error);
   }
 });
 

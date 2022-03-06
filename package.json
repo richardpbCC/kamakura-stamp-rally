@@ -3,10 +3,11 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "start": "nodemon server",
-    "serve": "npm run build && npm start",
     "build": "vue-cli-service build",
-    "dev": "vue-cli-service serve",
+    "start": "node server",
+    "serve": "vue-cli-service serve",
+    "server": "nodemon server",
+    "dev": "npm run serve && npm run server",
     "lint": "vue-cli-service lint",
     "seed": "node -r dotenv/config ./data/import.js"
   },

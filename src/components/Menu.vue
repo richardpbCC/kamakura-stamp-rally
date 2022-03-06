@@ -3,26 +3,30 @@
     <h1>Menu</h1>
     <div id="search-box">
       <input
+        v-on:keyup.enter="[searchByName($event), find($event)]"
         ref="searchForm"
         id="search"
-        type="form"
         placeholder="Input a name"
       />
-      <button v-on:click="[searchByName($event), find($event)]" type="submit">Search</button>
-      <br/>
+      <button v-on:click="[searchByName($event), find($event)]" type="submit">
+        Search
+      </button>
+      <br />
     </div>
-      <ul className="list-of-locations">
+    <ul className="list-of-locations">
       <li><a v-on:click="[clickOnLink($event), find($event)]">Kenchoji</a></li>
       <li><a v-on:click="[clickOnLink($event), find($event)]">Hasedera</a></li>
       <li><a v-on:click="[clickOnLink($event), find($event)]">Kōtoku-in</a></li>
       <li><a v-on:click="[clickOnLink($event), find($event)]">Hokokuji</a></li>
-      <li><a v-on:click="[clickOnLink($event), find($event)]">Meigetsuin</a></li>
+      <li>
+        <a v-on:click="[clickOnLink($event), find($event)]">Meigetsuin</a>
+      </li>
       <li><a v-on:click="[clickOnLink($event), find($event)]">Engakuji</a></li>
       <li><a v-on:click="[clickOnLink($event), find($event)]">Tokeiji</a></li>
       <li><a v-on:click="[clickOnLink($event), find($event)]">Zuisen-ji</a></li>
       <li><a v-on:click="[clickOnLink($event), find($event)]">Jōchi-ji</a></li>
       <li><a v-on:click="[clickOnLink($event), find($event)]">Jufuku-ji</a></li>
-      </ul>
+    </ul>
   </div>
 </template>
 
@@ -31,30 +35,32 @@ export default {
   name: "Menu",
   props: [],
   data: () => ({
-      searchRequest: ""
+    searchRequest: "",
   }),
   methods: {
-    searchByName: function (event) {     
+    searchByName: function (event) {
       const searchForm = this.$refs.searchForm;
-      this.searchRequest  = searchForm.value;
+      this.searchRequest = searchForm.value;
       searchForm.value = "";
     },
 
     clickOnLink: function (event) {
-      console.log(event.target.innerText)
       this.searchRequest = event.target.innerText;
     },
 
     find: async function (event) {
-      try {        
+      try {
         if (!this.searchRequest) {
           alert("Please enter a name");
         } else {
-          //get locations by name
-          const getLocations = await fetch(`/api/locations/${this.searchRequest}`, {
-            method: "GET",
-          });
-          const locations = await getLocations.json();
+          //get location by name
+          const getLocation = await fetch(
+            `/api/locations/${this.searchRequest}`,
+            {
+              method: "GET",
+            }
+          );
+          const location = await getLocation.json();
 
           //get posts by location
           const getPosts = await fetch(`/api/posts/${this.searchRequest}`, {
@@ -62,11 +68,11 @@ export default {
           });
           const posts = await getPosts.json();
 
-          const data = { locations: locations, posts: posts };
-          this.$emit("search", data);
+          //update current selection
+          this.$emit("search", { location: location, posts: posts });
         }
       } catch (error) {
-        console.log(error);
+        console.error(error);
       }
     },
   },
