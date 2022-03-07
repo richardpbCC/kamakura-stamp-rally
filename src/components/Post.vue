@@ -34,8 +34,6 @@ export default {
         const visitTimeForm = this.$refs.timeForm;
         const timeSelected = visitTimeForm.value;
 
-        console.log(visitTimeForm.value);
-
         if (!postRequest) {
           alert("Please enter a post and click submit");
         } else if (!timeSelected) {

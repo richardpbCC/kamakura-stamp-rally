@@ -51,32 +51,36 @@ export default {
     },
 
     deletePost: async function (event) {
-      try {
-        const selectedPostId = event.target.parentElement.parentElement.id;
-        const selectedPostLocation = this.currentLocation.name;
+      if (confirm("Are you sure you want to delete this post?")) {
+        try {
+          const selectedPostId = event.target.parentElement.parentElement.id;
+          const selectedPostLocation = this.currentLocation.name;
 
-        console.log(selectedPostId);
-        console.log(selectedPostLocation);
-        //delete post from database
-        const deletePost = await fetch(`/api/posts/`, {
-          method: "DELETE",
-          body: JSON.stringify({
-            id: selectedPostId,
-          }),
-          headers: {
-            "Content-type": "application/json; charset=UTF-8",
-          },
-        });
+          //delete post from database
 
-        //reset posts after delete
-        const getPosts = await fetch(`/api/posts/${selectedPostLocation}`, {
-          method: "GET",
-        });
+          const deletePost = await fetch(`/api/posts/`, {
+            method: "DELETE",
+            body: JSON.stringify({
+              id: selectedPostId,
+            }),
+            headers: {
+              "Content-type": "application/json; charset=UTF-8",
+            },
+          });
 
-        const posts = await getPosts.json();
-        this.$emit("updatePosts", { posts: posts, location: this.currentLocation });
-      } catch (error) {
-        console.error(error);
+          //reset posts after delete
+          const getPosts = await fetch(`/api/posts/${selectedPostLocation}`, {
+            method: "GET",
+          });
+
+          const posts = await getPosts.json();
+          this.$emit("updatePosts", {
+            posts: posts,
+            location: this.currentLocation,
+          });
+        } catch (error) {
+          console.error(error);
+        }
       }
     },
 
