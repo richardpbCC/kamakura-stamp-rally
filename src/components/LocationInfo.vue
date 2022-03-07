@@ -57,7 +57,6 @@ export default {
           const selectedPostLocation = this.currentLocation.name;
 
           //delete post from database
-
           const deletePost = await fetch(`/api/posts/`, {
             method: "DELETE",
             body: JSON.stringify({
@@ -67,20 +66,27 @@ export default {
               "Content-type": "application/json; charset=UTF-8",
             },
           });
-
-          //reset posts after delete
-          const getPosts = await fetch(`/api/posts/${selectedPostLocation}`, {
-            method: "GET",
-          });
-
-          const posts = await getPosts.json();
-          this.$emit("updatePosts", {
-            posts: posts,
-            location: this.currentLocation,
-          });
+          this.resetPosts(selectedPostLocation);
         } catch (error) {
           console.error(error);
         }
+      }
+    },
+
+    resetPosts: async function (selectedPostLocation) {
+      //reset posts after delete
+      try {
+        const getPosts = await fetch(`/api/posts/${selectedPostLocation}`, {
+          method: "GET",
+        });
+
+        const posts = await getPosts.json();
+        this.$emit("updatePosts", {
+          posts: posts,
+          location: this.currentLocation,
+        });
+      } catch (error) {
+        console.error(error);
       }
     },
 
