@@ -6,6 +6,7 @@
     v-bind:displayList="displayList"
     v-bind:postsByLocation="postsByLocation"
     v-bind:currentLocation="currentLocation"
+    v-bind:selectedPostId="selectedPostId"
     v-on:selectedPostId="setSelectedPost"
     v-on:updatePosts="showPosts"
   />
@@ -32,21 +33,25 @@ export default {
     currentLocation: "",
     displayList: [],
     postsByLocation: [],
-    selectedPostId: 0,
+    selectedPostId: -1,
+    selectedPost: []
   }),
   methods: {
     showResults: function (data) {
       this.displayList = data.location;
       this.currentLocation = data.location[0];
-      this.postsByLocation = data.posts;
-      console.log(this.currentLocation)
+      this.postsByLocation = data.posts;          
     },
     showPosts: function (data) {
       this.postsByLocation = data.posts;
       this.currentLocation = data.location;
     },
     setSelectedPost: function (data) {
-      this.selectedPostId = data;
+      this.selectedPostId = Number(data);
+      const posts = this.postsByLocation;
+      this.selectedPost = posts.filter(post => post.id === this.selectedPostId); 
+      console.log("post", this.selectedPost)
+      this.displayList = [];
     },    
   },
 };

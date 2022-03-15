@@ -26,6 +26,22 @@
       </div>
     </div>
   </div>
+
+  <div v-if="selectedPostId > -1" class="LocationInfo">
+    <div>          
+        <div class="post-box">
+          <p class="post">{{}}</p>
+          <div class="post-controls">
+            <button v-on:click="selectPost" class="edit-button">
+              Edit Post
+            </button>
+            <button v-on:click="deletePost" class="delete-button">
+              Delete Post
+            </button>            
+          </div>
+        </div>      
+    </div>
+  </div>
 </template>
 
 <script>
@@ -36,8 +52,7 @@ export default {
   props: [
     "displayList",
     "postsByLocation",
-    "renderPosts",
-    "selectedPost",
+    "selectedPostId",
     "currentLocation",
   ],
   methods: {
@@ -45,6 +60,13 @@ export default {
       try {
         const selectedPostId = event.target.parentElement.parentElement.id;
         this.$emit("selectedPostId", selectedPostId);
+      } catch (error) {
+        console.error(error);
+      }
+    },
+
+    editPost: async function () {
+      try {
       } catch (error) {
         console.error(error);
       }
