@@ -32,12 +32,9 @@
         <div class="post-box">
           <p class="post">{{}}</p>
           <div class="post-controls">
-            <button v-on:click="selectPost" class="edit-button">
-              Edit Post
-            </button>
-            <button v-on:click="deletePost" class="delete-button">
-              Delete Post
-            </button>            
+            <button class="save-edit-button">
+              Confirm Edit
+            </button>                        
           </div>
         </div>      
     </div>
@@ -145,6 +142,10 @@ export default {
   margin-left: 5px;
 }
 .delete-button {
+  float: left;
+  margin-left: 5px;
+}
+.save-edit-button {
   float: left;
   margin-left: 5px;
 }
