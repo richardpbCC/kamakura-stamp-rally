@@ -20,12 +20,32 @@
       <button v-on:click="submitPost" type="submit">Submit</button>
     </div>
   </div>
+
+  <div v-if="selectedPostId > -1" class="LocationInfo">
+    <h1>{{ currentLocation.name }}</h1>
+    <img class="pic" v-bind:src="currentLocation.imageURL" />
+    <h1>Edit Post</h1>
+    <div>
+      <div class="post-box">
+        <textarea
+          ref="postForm"
+          id="input-post"
+          type="input"
+          v-model="selectedPost[0].notes"
+        >
+        </textarea>
+        <div class="post-controls">
+          <button class="save-edit-button">Confirm Edit</button>
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
 export default {
   name: "Menu",
-  props: ["displayList"],
+  props: ["displayList", "selectedPost", "selectedPostId", "currentLocation"],
   methods: {
     submitPost: async function (event) {
       try {
@@ -63,7 +83,10 @@ export default {
           });
 
           const posts = await getPosts.json();
-          this.$emit("updatePosts", { posts: posts, location: this.displayList[0] });
+          this.$emit("updatePosts", {
+            posts: posts,
+            location: this.displayList[0],
+          });
         }
       } catch (error) {
         console.error(error);
@@ -76,15 +99,11 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-#input-post {
-  box-shadow: 0 1px 2px rgb(60 64 67 / 30%), 0 1px 3px 1px rgb(60 64 67 / 15%);
-  width: 650px;
-  height: 100px;
-  margin-right: auto;
-  margin-left: auto;
-}
 #search {
   margin-top: 30px;
+}
+.save-edit-button {
+  margin: 5px 83% 5px 5px;
 }
 h3 {
   margin: 40px 0 0;

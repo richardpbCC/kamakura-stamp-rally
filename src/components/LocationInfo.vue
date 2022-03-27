@@ -25,20 +25,7 @@
         </div>
       </div>
     </div>
-  </div>
-
-  <div v-if="selectedPostId > -1" class="LocationInfo">
-    <div>          
-        <div class="post-box">
-          <p class="post">{{}}</p>
-          <div class="post-controls">
-            <button class="save-edit-button">
-              Confirm Edit
-            </button>                        
-          </div>
-        </div>      
-    </div>
-  </div>
+  </div>  
 </template>
 
 <script>
@@ -49,7 +36,7 @@ export default {
   props: [
     "displayList",
     "postsByLocation",
-    "selectedPostId",
+    "selectedPostId",    
     "currentLocation",
   ],
   methods: {
@@ -119,17 +106,6 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-.pic {
-  height: 500px;
-  padding: 10px 10px 10px 10px;
-}
-.post-box {
-  box-shadow: 0 1px 2px rgb(60 64 67 / 30%), 0 1px 3px 1px rgb(60 64 67 / 15%);
-  margin-right: auto;
-  margin-left: auto;
-  width: 600px;
-  min-height: 80px;
-}
 .post {
   text-align: left;
   padding: 10px 10px 10px 10px;
@@ -142,10 +118,6 @@ export default {
   margin-left: 5px;
 }
 .delete-button {
-  float: left;
-  margin-left: 5px;
-}
-.save-edit-button {
   float: left;
   margin-left: 5px;
 }
