@@ -25,7 +25,7 @@
         </div>
       </div>
     </div>
-  </div>
+  </div>  
 </template>
 
 <script>
@@ -36,8 +36,7 @@ export default {
   props: [
     "displayList",
     "postsByLocation",
-    "renderPosts",
-    "selectedPost",
+    "selectedPostId",    
     "currentLocation",
   ],
   methods: {
@@ -50,31 +49,48 @@ export default {
       }
     },
 
-    deletePost: async function (event) {
+    editPost: async function () {
       try {
-        const selectedPostId = event.target.parentElement.parentElement.id;
-        const selectedPostLocation = this.currentLocation.name;
+      } catch (error) {
+        console.error(error);
+      }
+    },
 
-        console.log(selectedPostId);
-        console.log(selectedPostLocation);
-        //delete post from database
-        const deletePost = await fetch(`/api/posts/`, {
-          method: "DELETE",
-          body: JSON.stringify({
-            id: selectedPostId,
-          }),
-          headers: {
-            "Content-type": "application/json; charset=UTF-8",
-          },
-        });
+    deletePost: async function (event) {
+      if (confirm("Are you sure you want to delete this post?")) {
+        try {
+          const selectedPostId = event.target.parentElement.parentElement.id;
+          const selectedPostLocation = this.currentLocation.name;
 
-        //reset posts after delete
+          //delete post from database
+          const deletePost = await fetch(`/api/posts/`, {
+            method: "DELETE",
+            body: JSON.stringify({
+              id: selectedPostId,
+            }),
+            headers: {
+              "Content-type": "application/json; charset=UTF-8",
+            },
+          });
+          this.resetPosts(selectedPostLocation);
+        } catch (error) {
+          console.error(error);
+        }
+      }
+    },
+
+    resetPosts: async function (selectedPostLocation) {
+      //reset posts after delete
+      try {
         const getPosts = await fetch(`/api/posts/${selectedPostLocation}`, {
           method: "GET",
         });
 
         const posts = await getPosts.json();
-        this.$emit("updatePosts", { posts: posts, location: this.currentLocation });
+        this.$emit("updatePosts", {
+          posts: posts,
+          location: this.currentLocation,
+        });
       } catch (error) {
         console.error(error);
       }
@@ -90,17 +106,6 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-.pic {
-  height: 500px;
-  padding: 10px 10px 10px 10px;
-}
-.post-box {
-  box-shadow: 0 1px 2px rgb(60 64 67 / 30%), 0 1px 3px 1px rgb(60 64 67 / 15%);
-  margin-right: auto;
-  margin-left: auto;
-  width: 600px;
-  min-height: 80px;
-}
 .post {
   text-align: left;
   padding: 10px 10px 10px 10px;

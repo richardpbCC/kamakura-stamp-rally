@@ -6,10 +6,17 @@
     v-bind:displayList="displayList"
     v-bind:postsByLocation="postsByLocation"
     v-bind:currentLocation="currentLocation"
+    v-bind:selectedPostId="selectedPostId"
     v-on:selectedPostId="setSelectedPost"
     v-on:updatePosts="showPosts"
   />
-  <Post v-bind:displayList="displayList" v-on:updatePosts="showPosts" />
+  <Post
+    v-bind:selectedPostId="selectedPostId"
+    v-bind:selectedPost="selectedPost"
+    v-bind:displayList="displayList"
+    v-bind:currentLocation="currentLocation"
+    v-on:updatePosts="showPosts"
+  />
   <Map v-bind:displayList="displayList" />
 </template>
 
@@ -32,22 +39,28 @@ export default {
     currentLocation: "",
     displayList: [],
     postsByLocation: [],
-    selectedPostId: 0,
+    selectedPostId: -1,
+    selectedPost: [],
   }),
   methods: {
     showResults: function (data) {
       this.displayList = data.location;
       this.currentLocation = data.location[0];
       this.postsByLocation = data.posts;
-      console.log(this.currentLocation)
     },
     showPosts: function (data) {
       this.postsByLocation = data.posts;
       this.currentLocation = data.location;
     },
     setSelectedPost: function (data) {
-      this.selectedPostId = data;
-    },    
+      this.selectedPostId = Number(data);
+      const posts = this.postsByLocation;
+      this.selectedPost = posts.filter(
+        (post) => post.id === this.selectedPostId
+      );
+      console.log("location", this.currentLocation);
+      this.displayList = [];
+    },
   },
 };
 </script>
@@ -66,5 +79,24 @@ export default {
 }
 #logo {
   width: 250px;
+}
+#input-post {
+  box-shadow: 0 1px 2px rgb(60 64 67 / 30%), 0 1px 3px 1px rgb(60 64 67 / 15%);
+  min-width: 550px;
+  min-height: 80px;
+  margin-right: auto;
+  margin-left: auto;
+}
+.post-box {
+  box-shadow: 0 1px 2px rgb(60 64 67 / 30%), 0 1px 3px 1px rgb(60 64 67 / 15%);
+  margin-right: auto;
+  margin-left: auto;
+  width: 600px;
+  min-height: 100px;
+  padding: 5px 5px 5px 5px;
+}
+.pic {
+  height: 500px;
+  padding: 10px 10px 10px 10px;
 }
 </style>
