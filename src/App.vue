@@ -8,14 +8,14 @@
     v-bind:currentLocation="currentLocation"
     v-bind:selectedPostId="selectedPostId"
     v-on:selectedPostId="setSelectedPost"
-    v-on:updatePosts="showPosts"
+    v-on:updatePosts="updatePosts"
   />
   <Post
     v-bind:selectedPostId="selectedPostId"
     v-bind:selectedPost="selectedPost"
     v-bind:displayList="displayList"
     v-bind:currentLocation="currentLocation"
-    v-on:updatePosts="showPosts"
+    v-on:updatePosts="updatePosts"
   />
   <Map v-bind:displayList="displayList" />
 </template>
@@ -48,7 +48,9 @@ export default {
       this.currentLocation = data.location[0];
       this.postsByLocation = data.posts;
     },
-    showPosts: function (data) {
+    updatePosts: function (data) {      
+      this.selectedPostId = -1;
+      this.displayList = data.posts;
       this.postsByLocation = data.posts;
       this.currentLocation = data.location;
     },
@@ -57,8 +59,7 @@ export default {
       const posts = this.postsByLocation;
       this.selectedPost = posts.filter(
         (post) => post.id === this.selectedPostId
-      );
-      console.log("location", this.currentLocation);
+      );      
       this.displayList = [];
     },
   },

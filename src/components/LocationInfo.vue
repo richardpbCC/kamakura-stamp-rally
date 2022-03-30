@@ -1,7 +1,6 @@
 <template>
   <div v-if="displayList.length > 0" class="LocationInfo">
     <h1>{{ displayList[0].name }}</h1>
-    <br />
     <div>
       <img class="pic" v-bind:src="displayList[0].imageURL" />
       <div v-if="postsByLocation.length > 0">
@@ -25,7 +24,7 @@
         </div>
       </div>
     </div>
-  </div>  
+  </div>
 </template>
 
 <script>
@@ -36,7 +35,7 @@ export default {
   props: [
     "displayList",
     "postsByLocation",
-    "selectedPostId",    
+    "selectedPostId",
     "currentLocation",
   ],
   methods: {
