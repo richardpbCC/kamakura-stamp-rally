@@ -61,7 +61,7 @@ export default {
             }
           );
           const location = await getLocation.json();
-
+          
           //get posts by location
           const getPosts = await fetch(`/api/posts/${this.searchRequest}`, {
             method: "GET",

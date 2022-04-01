@@ -37,7 +37,7 @@ app.get("/api/locations/:name", async (req, res) => {
     });
     res.status(200).json(found);
   } catch (err) {
-    console.log("No matching result", err);
+    console.error("No matching result", err);
     res.sendStatus(500);
   }
 });
@@ -60,8 +60,7 @@ app.get("/api/posts/:location", async (req, res) => {
     const posts = await db.select().table("posts");
     const postsByLocation = posts.filter((post) => {
       return post.location.toLowerCase() === location.toLowerCase();
-    });
-    console.log(postsByLocation);
+    });    
     res.status(200).json(postsByLocation);
   } catch (error) {
     console.error("Error loading posts", err);
@@ -71,8 +70,7 @@ app.get("/api/posts/:location", async (req, res) => {
 
 //new post
 app.post("/api/posts/:location", async (req, res) => {
-  const post = req.body;
-  console.log("post", post);
+  const post = req.body;  
   try {
     const posted = await db.insert(post).into("posts");
     res.status(200).json(posted);

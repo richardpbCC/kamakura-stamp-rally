@@ -48,9 +48,9 @@ export default {
       this.currentLocation = data.location[0];
       this.postsByLocation = data.posts;
     },
-    updatePosts: function (data) {      
+    updatePosts: function (data) { 
       this.selectedPostId = -1;
-      this.displayList = data.posts;
+      this.displayList = [data.location];
       this.postsByLocation = data.posts;
       this.currentLocation = data.location;
     },
