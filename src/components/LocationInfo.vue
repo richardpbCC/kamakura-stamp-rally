@@ -47,14 +47,7 @@ export default {
         console.error(error);
       }
     },
-
-    editPost: async function () {
-      try {
-      } catch (error) {
-        console.error(error);
-      }
-    },
-
+    
     deletePost: async function (event) {
       if (confirm("Are you sure you want to delete this post?")) {
         try {

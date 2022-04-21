@@ -42,12 +42,8 @@
           >
             Confirm Edit
           </button>
-          <button 
-          v-on:click="resetPosts"
-          type="submit"
-          class="cancel-button"
-          >
-          Cancel
+          <button v-on:click="resetPosts" type="submit" class="cancel-button">
+            Cancel
           </button>
         </div>
       </div>
@@ -58,12 +54,7 @@
 <script>
 export default {
   name: "Menu",
-  props: [
-    "displayList", 
-    "selectedPost", 
-    "selectedPostId", 
-    "currentLocation"
-    ],
+  props: ["displayList", "selectedPost", "selectedPostId", "currentLocation"],
   methods: {
     submitPost: async function (event) {
       try {
@@ -102,18 +93,28 @@ export default {
       }
     },
 
+    submitEdit: async function () {
+      try {
+        const postForm = this.$refs.postForm;
+        const postRequest = postForm.value;     
+        console.log(postRequest); 
+      } catch (error) {
+        console.error(error);
+      }
+    },   
+
     //get posts by location
-    resetPosts: async function () {      
+    resetPosts: async function () {
       try {
         const currentLocation = this.currentLocation;
-        
+
         const location = currentLocation.name;
         const getPosts = await fetch(`/api/posts/${location}`, {
           method: "GET",
         });
 
         const posts = await getPosts.json();
-        
+
         this.$emit("updatePosts", {
           posts: posts,
           location: this.currentLocation,
@@ -122,14 +123,7 @@ export default {
         console.error(error);
       }
     },
-
-    cancelEdit: async function () {
-      try {
-
-      } catch(error) {
-        console.error(error);
-      }
-    },
+     
   },
   emits: ["updatePosts"],
 };
