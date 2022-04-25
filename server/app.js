@@ -60,7 +60,7 @@ app.get("/api/posts/:location", async (req, res) => {
     const posts = await db.select().table("posts");
     const postsByLocation = posts.filter((post) => {
       return post.location.toLowerCase() === location.toLowerCase();
-    });    
+    });
     res.status(200).json(postsByLocation);
   } catch (error) {
     console.error("Error loading posts", err);
@@ -70,7 +70,7 @@ app.get("/api/posts/:location", async (req, res) => {
 
 //new post
 app.post("/api/posts/:location", async (req, res) => {
-  const post = req.body;  
+  const post = req.body;
   try {
     const posted = await db.insert(post).into("posts");
     res.status(200).json(posted);
@@ -80,10 +80,27 @@ app.post("/api/posts/:location", async (req, res) => {
   }
 });
 
+//edit post
+app.patch("/api/posts/", async (req, res) => {
+  console.log("patch recieved");
+
+  try {
+    const edit = req.body.notes;
+    const postId = req.body.id;
+    const edited = await db("posts").where({ id: postId }).update({
+      notes: edit,
+    });
+    res.status(200).json(edited);
+  } catch (error) {
+    console.error(error);
+    res.sendStatus(400);
+  }
+});
+
 //delete post by id
 app.delete("/api/posts/", async (req, res) => {
   const postId = req.body.id;
-    try {
+  try {
     const deleted = await db("posts").where({ id: postId }).del();
     res.status(200).json(deleted);
   } catch (error) {

@@ -56,7 +56,7 @@ export default {
   name: "Menu",
   props: ["displayList", "selectedPost", "selectedPostId", "currentLocation"],
   methods: {
-    submitPost: async function (event) {
+    submitPost: async function () {
       try {
         const postForm = this.$refs.postForm;
         const postRequest = postForm.value;
@@ -94,14 +94,35 @@ export default {
     },
 
     submitEdit: async function () {
+      console.log("entered submitEdit")
       try {
         const postForm = this.$refs.postForm;
-        const postRequest = postForm.value;     
-        console.log(postRequest); 
+        const postRequest = postForm.value;
+        const postId = this.$props.selectedPostId;
+        
+        console.log(postRequest);
+
+        const makeEdit = await fetch(`/api/posts/`, {
+          method: "PATCH",
+          body: JSON.stringify({
+            id: postId,
+            notes: postRequest,
+          }),
+          headers: {
+            "content-type": "application/json; charset=UTF-8",
+          },
+        });
+
+        const edited = await makeEdit.json();
+
+        console.log(edited);
+
+        this.resetPosts();
+
       } catch (error) {
         console.error(error);
       }
-    },   
+    },
 
     //get posts by location
     resetPosts: async function () {
@@ -123,7 +144,6 @@ export default {
         console.error(error);
       }
     },
-     
   },
   emits: ["updatePosts"],
 };
